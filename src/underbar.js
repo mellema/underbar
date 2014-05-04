@@ -110,6 +110,21 @@ var _ = {};
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    array.sort();
+    var arr = [];
+    var a = 0;
+    _.each(array, function(num){
+      if(a === 0){
+        arr.push(num);
+      }
+      else{
+        if(a < array.length && array[a] !== array[a - 1]){
+          arr.push(num);
+        }
+      }
+      a++;
+    });
+    return arr;
   };
 
 
