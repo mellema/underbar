@@ -219,7 +219,9 @@ var _ = {};
       iterator =  _.identity;
     }
     _.each(collection, function(value, index, list) {
-      if (!(result = result && iterator.call(context, value, index, list))) return {};
+      if (!(result = result && iterator.call(context, value, index, list))){
+        return {};
+      }
     });
     return !!result;
   };
@@ -228,6 +230,25 @@ var _ = {};
   // provided, provide a default one
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
+    
+    var result = false;
+    //var check = false;
+    if (collection.length == 0){
+      return result;
+    }
+    if(collection == null){
+      return result;
+    }
+    
+    if(typeof iterator == 'undefined'){
+      iterator =  _.identity;
+    }
+    _.each(collection, function(value, index, list) {
+      if (result || (result = iterator.call(context, value, index, list))){
+        return {};
+      }  
+    });
+    return !!result;
   };
 
 
