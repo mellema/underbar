@@ -133,6 +133,15 @@ var _ = {};
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    
+    var arr = [];
+    var a;
+    
+    _.each(collection, function(num){
+      a = iterator(num);
+      arr.push(a);
+    });
+    return arr;
   };
 
   /*
@@ -156,6 +165,11 @@ var _ = {};
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+    //var args = slice.call(arguments, 2);
+    var isFunc = _.isFunction(functionOrKey);
+    return _.map(collection, function(value) {
+      return (isFunc ? functionOrKey : value[functionOrKey]).apply(value, args);
+    });
   };
 
   // Reduces an array or object to a single value by repetitively calling
@@ -172,6 +186,11 @@ var _ = {};
   //     return total + number;
   //   }, 0); // should be 6
   _.reduce = function(collection, iterator, accumulator) {
+  
+    _.each(collection, function(num){
+      accumulator = iterator(accumulator,num);
+    });
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
