@@ -164,11 +164,11 @@ var _ = {};
 
   // Calls the method named by methodName on each value in the list.
   // Note: you will nead to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
-    //var args = slice.call(arguments, 2);
-    var isFunc = _.isFunction(functionOrKey);
+  _.invoke = function(collection, methodName, args) {
+    var isFunc = (typeof methodName === 'function');
+    var args = Array.prototype.slice.call(arguments, 2);
     return _.map(collection, function(value) {
-      return (isFunc ? functionOrKey : value[functionOrKey]).apply(value, args);
+      return (isFunc ? methodName : value[methodName]).apply(value, args);
     });
   };
 
